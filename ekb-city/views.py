@@ -20,7 +20,6 @@ def about(request):
 def search(request):
     if 'address' in request.POST and request.POST['address']:
         address = request.POST['address']
-        print address.decode("utf-8")
         matches = Finder.match(address)
         return render_to_response('answer.html',
                                   {"address": request.POST['address'],

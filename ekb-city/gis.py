@@ -9,18 +9,17 @@ class Finder(object):
         self.houses = self.Houses()
 
     def DB(self):
-        """Load 2Gis.csv file"""
-        database = []
+        """Load 2Gis database"""
         try:
-            database = open("2Gis.csv").readlines()
-            database = map(lambda z: (u"{}, {}".format(z[1].strip(),
-                                                       z[0].strip()),
-                                      z[2].strip()),
-                           map(lambda y: y.split(";"),
-                           map(lambda x: x.decode("utf-8"), database)))
+            from database import DATABASE
+            db = map(lambda z: (u"{}, {}".format(z[1].strip(),
+                                                 z[0].strip()),
+                                z[2].strip()),
+                     map(lambda y: y.split(";"),
+                     map(lambda x: x.decode("utf-8"), DATABASE)))
         except IOError:
             print("[ERROR]: File 2Gis.csv not found")
-        return database
+        return db
 
     def Streets(self):
         """Aggregate addresses into dictionary by streets"""
