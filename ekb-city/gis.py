@@ -63,7 +63,9 @@ class Finder(object):
         except KeyError:
             for house in self.houses:
                 if address in house:
-                    matches.extend(self.houses[house])
+                    houses = map(lambda x: u"{} {}".format(x, house),
+                                 self.houses[house])
+                    matches.extend(houses)
         return matches
 
     def matchStreet(self, address):
@@ -74,7 +76,9 @@ class Finder(object):
         except KeyError:
             for street in self.streets:
                 if address in street:
-                    matches.extend(self.streets[street])
+                    streets = map(lambda x: u"{} {}".format(street, x),
+                                  self.streets[street])
+                    matches.extend(streets)
         return matches
 
     #TODO: What if Street and House are known together?
