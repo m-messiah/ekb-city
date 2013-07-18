@@ -1,4 +1,4 @@
-Ekb_City
+Ekb-City
 ===================
 
 Specialized for Night Game DozoR, but useful for another Quests.
@@ -11,8 +11,9 @@ Search by addresses of Ekaterinburg.
 RELEASES
 ========
 
-v0.0
+v0.1
 -----
 
-Just folder tree.
+Parse 2Gis exported .csv database.
+List by house number and by street name.
 
