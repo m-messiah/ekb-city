@@ -43,15 +43,22 @@ class Finder(object):
 
     def match(self, address):
         matches = []
-        try:
-            matches.extend(self.matchStreet(address))
-        except:
-            print("No such street")
+        if len(address.split()) > 1:
+            street, house = address.split()[:2]
+            houses = self.matchStreet(street)
+            for h in houses:
+                if house in h:
+                    matches.append(u"{} {}".format(street, h))
+        else:
+            try:
+                matches.extend(self.matchStreet(address))
+            except:
+                print("No such street")
 
-        try:
-            matches.extend(self.matchHouse(address))
-        except:
-            print("No such house")
+            try:
+                matches.extend(self.matchHouse(address))
+            except:
+                print("No such house")
 
         return filter(lambda x: len(x) > 0, matches)
 
