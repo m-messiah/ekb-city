@@ -47,12 +47,12 @@ class Finder(object):
         try:
             matches.extend(self.matchStreet(address))
         except:
-            pass
+            print("No such street")
 
         try:
             matches.extend(self.matchHouse(address))
         except:
-            pass
+            print("No such house")
 
         return filter(lambda x: len(x) > 0, matches)
 
