@@ -16,7 +16,7 @@ class Finder(object):
                                                  z[0].strip()),
                                 z[2].strip()),
                      map(lambda y: y.split(";"),
-                     map(lambda x: x.decode("utf-8"), DATABASE)))
+                     map(lambda x: x.decode("utf-8").lower(), DATABASE)))
         except IOError:
             print("[ERROR]: File 2Gis.csv not found")
         return db
@@ -43,12 +43,13 @@ class Finder(object):
 
     def match(self, address):
         matches = []
+        address = address.lower()
         if len(address.split()) > 1:
             street, house = address.split()[:2]
             houses = self.matchStreet(street)
             for h in houses:
                 if house in h:
-                    matches.append(u"{} {}".format(street, h))
+                    matches.append(u"{}".format(h))
         else:
             try:
                 matches.extend(self.matchStreet(address))
@@ -87,5 +88,3 @@ class Finder(object):
                                   self.streets[street])
                     matches.extend(streets)
         return matches
-
-    #TODO: What if Street and House are known together?

@@ -11,7 +11,12 @@ Search by addresses of Ekaterinburg.
 RELEASES
 ========
 
-v0.1
+v0.2
+----
+
+Find by street, house, part of street or house, by part of street and house together
+
+v0.1a
 -----
 
 Parse 2Gis exported .csv database.
