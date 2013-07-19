@@ -17,8 +17,8 @@ class Finder(object):
                                 z[2].strip()),
                      map(lambda y: y.split(";"),
                      map(lambda x: x.decode("utf-8").lower(), DATABASE)))
-        except IOError:
-            print("[ERROR]: File 2Gis.csv not found")
+        except:
+            print("[ERROR]: Can't import database")
         return db
 
     def Streets(self):

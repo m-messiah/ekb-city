@@ -21,10 +21,9 @@ def search(request):
     if 'address' in request.POST and request.POST['address']:
         address = request.POST['address']
         matches = Finder.match(address)
+        if not len(matches)
+            matches = [u"<font color=\"red\">Results not found! :(</font>"]
         return render_to_response('answer.html',
                                   {"address": request.POST['address'],
-                                   "matches": sorted(filter(lambda x:
-                                                            len(x) > 0,
-                                                            matches))
-                                   })
+                                   "matches": matches })
     return render(request, "input_form.html")
