@@ -20,7 +20,7 @@ def about(request):
 def search(request):
     if 'address' in request.POST and request.POST['address']:
         address = request.POST['address']
-        matches = Finder.match(address)
+        matches = sorted(Finder.match(address))
         if not len(matches):
             matches = [u"<font color=\"red\">Results not found! :(</font>"]
         return render_to_response('answer.html',
