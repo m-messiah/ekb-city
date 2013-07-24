@@ -1,5 +1,6 @@
 # ~*~ coding: utf-8 ~*~
 __author__ = 'Messiah'
+from urllib import urlencode
 
 
 class Finder(object):
@@ -12,14 +13,17 @@ class Finder(object):
         """Load 2Gis database"""
         try:
             from database import DATABASE
+
             db = map(lambda z: (u"{}, {}".format(z[1].strip(),
                                                  z[0].strip()),
                                 z[2].strip()),
                      map(lambda y: y.split(";"),
-                     map(lambda x: x.decode("utf-8").lower(), DATABASE)))
-        except:
+                         map(lambda x: x.decode("utf-8").lower(), DATABASE)))
+        except ImportError:
             print("[ERROR]: Can't import database")
-        return db
+            return None
+        else:
+            return db
 
     def Streets(self):
         """Aggregate addresses into dictionary by streets"""
@@ -61,13 +65,18 @@ class Finder(object):
             except:
                 print("No such house")
 
-        return filter(lambda x: len(x) > 0, matches)
+        matches = filter(lambda x: len(x) > 0, matches)
+        return map(lambda x:
+                   '<a href="http://maps.yandex.ru/?{}" target="_blank">{}</a>'
+                   .format(urlencode({'text': x, 'x': 15, 'l': 'map'}), x),
+                   matches)
 
     def matchHouse(self, address):
         """Return all matches by house number"""
         matches = []
         try:
-            matches.extend(self.houses[address])
+            matches.extend(map(lambda x: u"{} {}".format(x, address),
+                               self.houses[address]))
         except KeyError:
             for house in self.houses:
                 if address in house:
