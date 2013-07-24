@@ -11,6 +11,11 @@ Search by addresses of Ekaterinburg.
 RELEASES
 ========
 
+v0.3
+----
+
+Every result is Yandex.Maps' link.
+
 v0.2
 ----
 
