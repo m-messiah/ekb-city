@@ -66,9 +66,10 @@ class Finder(object):
                 print("No such house")
 
         matches = filter(lambda x: len(x) > 0, matches)
+        print list(matches)[0]
         return map(lambda x:
-                   '<a href="http://maps.yandex.ru/?{}" target="_blank">{}</a>'
-                   .format(urlencode({'text': x.decode("utf-8"),
+                   u'<a href="http://maps.yandex.ru/?{}" target="_blank">{}</a>'
+                   .format(urlencode({'text': x,
                                       'x': 15,
                                       'l': 'map'}),
                            x),
