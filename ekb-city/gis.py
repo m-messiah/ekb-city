@@ -68,7 +68,10 @@ class Finder(object):
         matches = filter(lambda x: len(x) > 0, matches)
         return map(lambda x:
                    '<a href="http://maps.yandex.ru/?{}" target="_blank">{}</a>'
-                   .format(urlencode({'text': x, 'x': 15, 'l': 'map'}), x),
+                   .format(urlencode({'text': x.encode("utf-8"),
+                                      'x': 15,
+                                      'l': 'map'}),
+                           x),
                    matches)
 
     def matchHouse(self, address):
