@@ -22,7 +22,7 @@ def search(request):
         address = request.POST['address']
         matches = sorted(Finder.match(address))
         if not len(matches):
-            matches = [u"<p class=\"text-warning\">Results not found! :(</p>"]
+            matches = [u"<p class=\"text-danger\">Results not found! :(</p>"]
         return render_to_response('answer.html',
                                   {"address": request.POST['address'],
                                    "matches": matches })
