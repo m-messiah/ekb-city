@@ -11,6 +11,11 @@ Search by addresses of Ekaterinburg.
 RELEASES
 ========
 
+v0.4
+----
+
+TwitterBootstrap 3 RC1, useful design, tabindex.
+
 v0.3
 ----
 

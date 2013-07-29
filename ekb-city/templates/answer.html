@@ -3,10 +3,8 @@
 {% block title %}Matches{% endblock %}
 
 {% block content %}
-<button class="btn" type="button" onclick="location.href='/';"><i class="icon-home"></i> Return to the input page</button>
-<br><br>
-<table><tr><th>Entered address</th><td>{{ address }}</td></tr></table>
-<br>
+<button class="btn" type="button" onclick="location.href='/';"><i class="glyphicon glyphicon-home"></i> Return to the input page</button>
+<table class="table"><tr><th>Entered address</th><td>{{ address }}</td></tr></table>
 <table class="table table-bordered table-stripped">
     {% for result in matches %}
     <tr>
