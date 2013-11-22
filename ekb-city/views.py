@@ -25,5 +25,5 @@ def search(request):
             matches = [u"<p class=\"text-danger\">Results not found! :(</p>"]
         return render_to_response('answer.html',
                                   {"address": request.POST['address'],
-                                   "matches": matches })
+                                   "matches": matches})
     return render(request, "input_form.html")

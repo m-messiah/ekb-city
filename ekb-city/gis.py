@@ -5,27 +5,28 @@ from urllib import urlencode
 
 class Finder(object):
     def __init__(self):
-        self.database = self.DB()
-        self.streets = self.Streets()
-        self.houses = self.Houses()
+        self.database = self.load_database()
+        self.streets = self.streets()
+        self.houses = self.houses()
 
-    def DB(self):
+    @staticmethod
+    def load_database():
         """Load 2Gis database"""
         try:
             from database import DATABASE
-
+        except ImportError:
+            print("[ERROR]: Can't import database")
+            return []
+        else:
             db = map(lambda z: (u"{}, {}".format(z[1].strip(),
                                                  z[0].strip()),
                                 z[2].strip()),
                      map(lambda y: y.split(";"),
-                         map(lambda x: x.decode("utf-8").lower(), DATABASE)))
-        except ImportError:
-            print("[ERROR]: Can't import database")
-            return None
-        else:
+                         map(lambda x: x.decode("utf-8").lower(),
+                             DATABASE)))
             return db
 
-    def Streets(self):
+    def streets(self):
         """Aggregate addresses into dictionary by streets"""
         streets = dict()
         for street, house in self.database:
@@ -35,7 +36,7 @@ class Finder(object):
                 streets[street] = [house, ]
         return streets
 
-    def Houses(self):
+    def houses(self):
         """Aggregate addresses into dictionary by houses"""
         houses = dict()
         for street, house in self.database:
@@ -50,20 +51,13 @@ class Finder(object):
         address = address.lower()
         if len(address.split()) > 1:
             street, house = address.split()[:2]
-            houses = self.matchStreet(street)
+            houses = self.match_street(street)
             for h in houses:
                 if house in h:
                     matches.append(u"{}".format(h))
         else:
-            try:
-                matches.extend(self.matchStreet(address))
-            except:
-                print("No such street")
-
-            try:
-                matches.extend(self.matchHouse(address))
-            except:
-                print("No such house")
+            matches.extend(self.match_street(address))
+            matches.extend(self.match_house(address))
 
         matches = filter(lambda x: len(x) > 0, matches)
         return map(lambda x:
@@ -75,7 +69,7 @@ class Finder(object):
                            x),
                    matches)
 
-    def matchHouse(self, address):
+    def match_house(self, address):
         """Return all matches by house number"""
         matches = []
         try:
@@ -89,7 +83,7 @@ class Finder(object):
                     matches.extend(houses)
         return matches
 
-    def matchStreet(self, address):
+    def match_street(self, address):
         """Return all matches by street name"""
         matches = []
         try:
